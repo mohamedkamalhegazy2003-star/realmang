@@ -54,16 +54,16 @@ jobs:
       - name: Generate Android project
         run: pnpm --filter @workspace/mobile exec expo prebuild --platform android --no-install
 
-      - name: Build installable debug APK
+      - name: Build installable release APK
         working-directory: artifacts/mobile/android
         run: |
           chmod +x ./gradlew
-          ./gradlew --no-daemon :app:assembleDebug
+          ./gradlew --no-daemon :app:assembleRelease
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: estate-manager-android-apk
-          path: artifacts/mobile/android/app/build/outputs/apk/debug/app-debug.apk
+          path: artifacts/mobile/android/app/build/outputs/apk/release/app-release.apk
           if-no-files-found: error
           retention-days: 14
